@@ -28,3 +28,4 @@ node_modules
 
 # Exclude Bower components too - like Node dependencies, it takes far less time to build these on the web server than it does to copy them over from a local one
 bower_components
+/bower_components/

@@ -1,0 +1,34 @@
+{
+  "name": "aph-web",
+  "version": "0.0.0",
+  "homepage": "https://github.com/AndrewHavis/aph-web",
+  "authors": [
+    "Andrew Havis <andrew.havis@uk.ibm.com>"
+  ],
+  "description": "My website",
+  "main": "app.js",
+  "moduleType": [
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "andrew",
+    "havis",
+    "home",
+    "page",
+    "website"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "bootstrap": "~3.3.5"
+  }
+}
