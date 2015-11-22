@@ -1,25 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ng-app="aph-app">
 
 <head>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="The home page of Andrew Havis, an IBMer and Spurs fan in London and Hertfordshire, UK">
+    <meta name="author" content="Andrew Havis">
 
-    <title>Landing Page - Start Bootstrap Theme</title>
+    <title>Andrew Havis : an IBMer and Spurs fan : London and Hertfordshire, UK</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/landing-page.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Muli:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    
+    <!-- Angular -->
+    <script src="/lib/angular/angular.min.js"></script>
+    <script src="js/main.ctrl.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -67,14 +71,14 @@
 
     <!-- Header -->
     <a name="about"></a>
-    <div class="intro-header">
+    <div class="intro-header" data-ng-controller="flickr-bg-ctrl" data-ng-style="{'background-image': 'url(' + photoUrl + ')'}">
         <div class="container">
 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
                         <h1>Andrew Havis</h1>
-                        <h3>IBMer, Spurs fan, Londoner</h3>
+                        <h3>An IBMer and Spurs fan living and working in London and Hertfordshire, UK</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>
