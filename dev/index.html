@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="aph-app">
+<html lang="en" data-ng-app="aphApp">
 
 <head>
 
@@ -11,19 +11,22 @@
 
     <title>Andrew Havis : an IBMer and Spurs fan : London and Hertfordshire, UK</title>
 
-    <!-- Bootstrap Core CSS -->
+
     <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
+    <!-- build:css css/aph-web.css -->
     <link href="css/landing-page.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
+    <!-- endbuild -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Muli:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     
-    <!-- Angular -->
-    <script src="/lib/angular/angular.min.js"></script>
+    <!-- build:js js/aph-web.js -->
     <script src="js/main.ctrl.js"></script>
+    <!-- endbuild -->
+    
+    <script src="/lib/angular/angular.min.js"></script>
+    
+    <!-- Twitter API -->
+    <script async src="https://platform.twitter.com/widgets.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -71,7 +74,7 @@
 
     <!-- Header -->
     <a name="about"></a>
-    <div class="intro-header" data-ng-controller="flickr-bg-ctrl" data-ng-style="{'background-image': 'url(' + photoUrl + ')'}">
+    <div class="intro-header" data-ng-controller="flickrBgCtrl" data-ng-style="{'background-image': 'url(' + photoUrl + ')'}">
         <div class="container">
 
             <div class="row">
@@ -111,8 +114,8 @@
                 <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Death to the Stock Photo:<br>Special Thanks</h2>
-                    <p class="lead">A special thanks to <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a> for providing the photographs that you see in this template. Visit their website to become a member.</p>
+                    <h2 class="section-heading">About Me</h2>
+                    <p class="lead">I am Andrew Havis.</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="img/ipad.png" alt="">
@@ -125,7 +128,7 @@
     </div>
     <!-- /.content-section-a -->
 
-    <div class="content-section-b">
+    <div class="content-section-b" data-ng-controller="twitterCtrl" data-ng-show="twitterJSON">
 
         <div class="container">
 
@@ -133,11 +136,12 @@
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">3D Device Mockups<br>by PSDCovers</h2>
-                    <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by <a target="_blank" href="http://www.psdcovers.com/">PSDCovers</a>! Visit their website to download some of their awesome, free photoshop actions!</p>
+                    <h2 class="section-heading">Tweets</h2>
+                    <p class="lead">I have tweeted <span class="tweetCount" data-ng-bind="tweetCount"></span> times, and have <span class="followerCount" data-ng-bind="followerCount"></span> followers with <span class="followCount" data-ng-bind="followCount"></span> follows.</p>
+                    <h3>Recent Tweets</h3>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="img/dog.png" alt="">
+                    <a class="twitter-grid" href="https://twitter.com/_/timelines/668939806907330561">A Collection on Twitter</a>
                 </div>
             </div>
 

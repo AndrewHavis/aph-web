@@ -1,0 +1,167 @@
+/*!
+ * Start Bootstrap - Landing Page Bootstrap Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+@import 'partials/variables';
+
+body {
+	width: 100%;
+	height: 100%;
+	font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+	font-weight: 700;
+}
+html {
+	width: 100%;
+	height: 100%;
+}
+h1 {
+	font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+	font-weight: 700;
+}
+h2 {
+	font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+	font-weight: 700;
+}
+h3 {
+	font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+	font-weight: 700;
+}
+h4 {
+	font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+	font-weight: 700;
+}
+h5 {
+	font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+	font-weight: 700;
+}
+h6 {
+	font-family: $font_0, $font_1, $font_2, $font_3, $font_4;
+	font-weight: 700;
+}
+.topnav {
+	font-size: 14px;
+}
+.lead {
+	font-size: 18px;
+	font-weight: 400;
+}
+.intro-header {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	text-align: center;
+	color: $colour_desert_storm_approx;
+	background: $url_0 no-repeat center center;
+	background-size: cover;
+}
+.intro-message {
+	position: relative;
+	padding-top: 20%;
+	padding-bottom: 20%;
+	> h1 {
+		margin: 0;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 2px 2px 3px $black_60;
+		font-size: 5em;
+	}
+	> h3 {
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 2px 2px 3px $black_60;
+	}
+}
+.intro-divider {
+	width: 400px;
+	border-top: 1px solid $colour_desert_storm_approx;
+	border-bottom: 1px solid $black_20;
+}
+@media(max-width:767px) {
+	.intro-message {
+		padding-bottom: 15%;
+		> h1 {
+			font-size: 3em;
+		}
+	}
+	ul {
+		&.intro-social-buttons > li {
+			display: block;
+			margin-bottom: 20px;
+			padding: 0;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+		&.banner-social-buttons > li {
+			display: block;
+			margin-bottom: 20px;
+			padding: 0;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+	.intro-divider {
+		width: 100%;
+	}
+	.banner h2 {
+		margin: 0;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 2px 2px 3px $black_60;
+		font-size: 3em;
+	}
+}
+.network-name {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: 2px;
+}
+.content-section-a {
+	padding: 50px 0;
+	background-color: $colour_desert_storm_approx;
+}
+.content-section-b {
+	padding: 50px 0;
+	border-top: 1px solid $colour_mercury_approx;
+	border-bottom: 1px solid $colour_mercury_approx;
+}
+.section-heading {
+	margin-bottom: 30px;
+}
+.section-heading-spacer {
+	float: left;
+	width: 200px;
+	border-top: 3px solid $colour_mercury_approx;
+}
+.banner {
+	padding: 100px 0;
+	color: $colour_desert_storm_approx;
+	background: $url_1 no-repeat center center;
+	background-size: cover;
+	h2 {
+		margin: 0;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 2px 2px 3px $black_60;
+		font-size: 3em;
+	}
+	ul {
+		margin-bottom: 0;
+	}
+}
+.banner-social-buttons {
+	float: right;
+	margin-top: 0;
+}
+@media(max-width:1199px) {
+	ul.banner-social-buttons {
+		float: left;
+		margin-top: 15px;
+	}
+}
+footer {
+	padding: 50px 0;
+	background-color: $colour_desert_storm_approx;
+}
+p.copyright {
+	margin: 15px 0 0;
+}
