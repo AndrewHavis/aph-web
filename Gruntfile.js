@@ -71,13 +71,27 @@ module.exports = function(grunt) {
             dist: {
                 src: ['./public/css/{,*/}*.css', './public/js/{,*/}*.js'],
             }
+        },
+        
+        // Reload dev pages when I change them
+        watch: {
+          dev: {
+            files: ['dev/**/*.*'],
+            tasks: ['jshint', 'sass'],
+            options: {
+                spawn: false,
+                livereload: true,
+                livereloadOnError: false
+            },
+          },
         }
         
     });
 
     // Default task(s).
-    grunt.registerTask('default', ['build']);
+    grunt.registerTask('default', ['watch']);
     grunt.registerTask('init', ['copy:init']);
     grunt.registerTask('build', ['clean:dist', 'mkdir:all', 'sass:dist', 'copy:main', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:public', 'filerev', 'usemin']);
+    grunt.registerTask('watch', ['watch:dev']);
 
 };
