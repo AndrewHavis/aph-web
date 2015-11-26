@@ -3,13 +3,14 @@
 module.exports = function(grunt) {
     
     require('load-grunt-tasks')(grunt);
-
+    require('time-grunt')(grunt);
+    
     // Project configuration.
     grunt.initConfig({
         
         clean: {
             tmp: ['./.tmp'],
-            dist: ['./dist', './public']
+            dist: ['./.tmp', './dist', './public']
         },
         
         mkdir: {
@@ -27,6 +28,11 @@ module.exports = function(grunt) {
                 ],
             },
             main: {
+                files: [
+                    {expand: true, cwd: './dev', src: ['**'], dest: './.tmp/'},
+                ],
+            },
+            public: {
                 files: [
                     {expand: true, cwd: './.tmp/', src: ['**'], dest: './public/'},
                     {expand: true, cwd: './public/concat/', src: ['**'], dest: './public/'}
@@ -53,6 +59,7 @@ module.exports = function(grunt) {
         },
         
         usemin: {
+            html: './public/{,*/}*.html',
             css: './public/css/{,*/}*.css',
             js: './public/js/{,*/}*.js',
             options: {
@@ -71,6 +78,6 @@ module.exports = function(grunt) {
     // Default task(s).
     grunt.registerTask('default', ['build']);
     grunt.registerTask('init', ['copy:init']);
-    grunt.registerTask('build', ['clean:dist', 'mkdir:all', 'sass:dist', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:main', 'filerev', 'usemin']);
+    grunt.registerTask('build', ['clean:dist', 'mkdir:all', 'sass:dist', 'copy:main', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:public', 'filerev', 'usemin']);
 
 };

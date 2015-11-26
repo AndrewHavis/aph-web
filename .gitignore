@@ -33,3 +33,6 @@ node_modules
 
 # Credentials
 /credentials.json
+
+# Temporary files
+.tmp

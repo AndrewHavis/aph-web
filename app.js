@@ -91,6 +91,17 @@ app.use('/api/twitter/me', function(req, res) {
     });
 });
 
+app.use('/api/twitter/tweets', function(req, res) {
+    twitter.get('statuses/user_timeline', {"user_id": credentials.twitter.user_id, count: 5, include_rts: true}, function(err, result) {
+        if (!err) {
+            res.send(result);
+        }
+        else {
+            console.error('ERROR: Cannot access Twitter API\n' + err);
+        }
+    });
+});
+
 // start server on the specified port and binding host
 app.listen(appEnv.port, '0.0.0.0', function() {
 

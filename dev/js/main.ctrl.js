@@ -1,8 +1,8 @@
 'use strict';
 
-var app = angular.module('aphApp', []);
+var app = angular.module('aphApp', ['ngtweet']);
 
-app.controller('flickrBgCtrl', function($scope, $http) {
+app.controller('flickrBgCtrl', ['$scope', '$http', function($scope, $http) {
     
     // Get the photo JSON data from the API
     $http.get('/api/flickr')
@@ -26,9 +26,9 @@ app.controller('flickrBgCtrl', function($scope, $http) {
         
     });
     
-});
+}]);
 
-app.controller('twitterCtrl', function($scope, $http) {
+app.controller('twitterCtrl',  ['$scope', '$http', function($scope, $http) {
     
     // Get my information from the Twitter API
     $http.get('/api/twitter/me')
@@ -50,5 +50,19 @@ app.controller('twitterCtrl', function($scope, $http) {
         console.log(error);
         
     });
+    $http.get('/api/twitter/tweets')
+    .success(function(response) {
+        
+        // We have our data, so return it to Angular
+        console.log(response);
+        $scope.tweetsJSON = response;
     
-});
+    })
+    .error(function(error) {
+        
+        // We haven't been able to get the data, so return an error
+        console.log(error);
+        
+    });
+    
+}]);

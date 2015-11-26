@@ -19,11 +19,12 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Muli:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     
+    <script src="/lib/angular/angular.min.js"></script>
+    <script src="/lib/ngtweet/dist/ngtweet.min.js"></script>
+    
     <!-- build:js js/aph-web.js -->
     <script src="js/main.ctrl.js"></script>
     <!-- endbuild -->
-    
-    <script src="/lib/angular/angular.min.js"></script>
     
     <!-- Twitter API -->
     <script async src="https://platform.twitter.com/widgets.js"></script>
@@ -137,8 +138,11 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Tweets</h2>
-                    <p class="lead">I have tweeted <span class="tweetCount" data-ng-bind="tweetCount"></span> times, and have <span class="followerCount" data-ng-bind="followerCount"></span> followers with <span class="followCount" data-ng-bind="followCount"></span> follows.</p>
+                    <p class="lead">I have tweeted <span class="tweetCount twitterMetric">{{tweetCount | number}}</span> times, and have <span class="followerCount twitterMetric">{{followerCount | number}}</span> followers with <span class="followCount twitterMetric">{{followCount | number }}</span> follows.</p>
                     <h3>Recent Tweets</h3>
+                    <div data-ng-repeat="tweet in tweetsJSON">
+                        <twitter-widget twitter-widget-id="tweet.id_str"></twitter-widget>
+                    </div>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
                     <a class="twitter-grid" href="https://twitter.com/_/timelines/668939806907330561">A Collection on Twitter</a>
