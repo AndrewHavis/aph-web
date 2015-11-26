@@ -25,9 +25,6 @@
     <!-- build:js js/aph-web.js -->
     <script src="js/main.ctrl.js"></script>
     <!-- endbuild -->
-    
-    <!-- Twitter API -->
-    <script async src="https://platform.twitter.com/widgets.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -129,7 +126,7 @@
     </div>
     <!-- /.content-section-a -->
 
-    <div class="content-section-b" data-ng-controller="twitterCtrl" data-ng-show="twitterJSON">
+    <div class="content-section-b" data-ng-controller="twitterCtrl" data-ng-show="twitterJSON" twitter-widget-initialize>
 
         <div class="container">
 
