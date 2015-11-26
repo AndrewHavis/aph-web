@@ -126,7 +126,7 @@
     </div>
     <!-- /.content-section-a -->
 
-    <div class="content-section-b" data-ng-controller="twitterCtrl" data-ng-show="twitterJSON" twitter-widget-initialize>
+    <div class="content-section-b" data-ng-controller="twitterCtrl" data-ng-show="twitterJSON">
 
         <div class="container">
 
@@ -138,7 +138,7 @@
                     <p class="lead">I have tweeted <span class="tweetCount twitterMetric">{{tweetCount | number}}</span> times, and have <span class="followerCount twitterMetric">{{followerCount | number}}</span> followers with <span class="followCount twitterMetric">{{followCount | number }}</span> follows.</p>
                     <h3>Recent Tweets</h3>
                     <div data-ng-repeat="tweet in tweetsJSON">
-                        <twitter-widget twitter-widget-id="'tweet.id_str'"></twitter-widget>
+                        <twitter-widget twitter-widget-id="tweet.id_str" data-ng-show="tweet.id_str"></twitter-widget>
                     </div>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
