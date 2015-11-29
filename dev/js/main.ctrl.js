@@ -39,6 +39,7 @@ app.controller('twitterCtrl',  ['$scope', '$http', function($scope, $http) {
         $scope.twitterJSON = response;
         
         // Get the relevant details to display on the page
+        $scope.profileUrl = 'https://twitter.com/' + response.screen_name;
         $scope.tweetCount = response.statuses_count;
         $scope.followerCount = response.followers_count;
         $scope.followCount = response.friends_count;
