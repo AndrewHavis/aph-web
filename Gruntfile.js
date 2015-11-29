@@ -13,13 +13,33 @@ module.exports = function(grunt) {
             dist: ['./.tmp', './dist', './public']
         },
         
+        jshint: {
+            all: {
+                options: {
+                  curly: true,
+                  eqeqeq: true,
+                  eqnull: true,
+                  browser: true,
+                  node: true,
+                  globals: {
+                    angular: true,
+                    jQuery: true
+                  },
+                },
+                src: [
+                    './*.js',
+                    './dev/**/*.js'
+                ]
+            }
+        },
+        
         mkdir: {
             all: {
               options: {
                 create: ['./.tmp', './public']
               },
             },
-          },
+        },
 
         copy: {
             init: {
@@ -73,11 +93,27 @@ module.exports = function(grunt) {
             }
         },
         
+        // Set up servers
+        express: {
+            options: {
+                script: './app.js',
+                fallback: function() {
+                    console.error('ERROR: Cannot start the server properly.');
+                },
+            },
+            dev: {
+                node_env: 'development'
+            },
+            prod: {
+                node_env: 'production'
+            }
+        },
+        
         // Reload dev pages when I change them
         watch: {
           dev: {
             files: ['dev/**/*.*'],
-            tasks: ['jshint', 'sass'],
+            tasks: ['jshint:all', 'sass:dist'],
             options: {
                 spawn: false,
                 livereload: true,
@@ -91,7 +127,7 @@ module.exports = function(grunt) {
     // Default task(s).
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('init', ['copy:init']);
-    grunt.registerTask('build', ['clean:dist', 'mkdir:all', 'sass:dist', 'copy:main', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:public', 'filerev', 'usemin']);
-    grunt.registerTask('watch', ['watch:dev']);
+    grunt.registerTask('build', ['jshint:all', 'clean:dist', 'mkdir:all', 'sass:dist', 'copy:main', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:public', 'filerev', 'usemin']);
+    grunt.registerTask('server', ['express:dev', 'watch']);
 
 };

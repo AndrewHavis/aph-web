@@ -18,6 +18,18 @@ var app = express();
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
+// Go to the appropriate environment
+var env = app.get('env');
+console.log('Using the ' + env + ' environment.');
+if (env === 'development') {
+    // serve the files out of ./dev as our development files
+    app.use(express.static(__dirname + '/dev'));
+}
+else {
+    // serve the files out of ./public as our main files    
+    app.use(express.static(__dirname + '/public'));
+}
+
 // Get credentials from Cloud Foundry, or credentials.json if running locally
 if (!!appEnv.isLocal) {
     console.log('Running locally');
@@ -62,8 +74,7 @@ twitter.get('users/show', {"user_id": credentials.twitter.user_id}, function(err
     }
 });
 
-// serve the files out of ./public as our main files
-app.use(express.static(__dirname + '/public'));
+
 
 // get bower libraries
 app.use('/lib', express.static(__dirname + '/bower_components'));

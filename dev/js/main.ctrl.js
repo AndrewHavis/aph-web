@@ -42,6 +42,7 @@ app.controller('twitterCtrl',  ['$scope', '$http', function($scope, $http) {
         $scope.tweetCount = response.statuses_count;
         $scope.followerCount = response.followers_count;
         $scope.followCount = response.friends_count;
+        $scope.avatar = response.profile_image_url_https.replace('_normal', ''); // Get original image over HTTPS (in case I want to use HTTPS later)
     
     })
     .error(function(error) {
