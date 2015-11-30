@@ -13,6 +13,7 @@
 
 
     <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/lib/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.min.css">
     <!-- build:css css/aph-web.css -->
     <link href="css/landing-page.css" rel="stylesheet">
     <!-- endbuild -->
@@ -24,7 +25,8 @@
     
     <!-- build:js js/aph-web.js -->
     <script src="js/main.js"></script>
-    <script src="js/controllers/flickr-bg.ctrl.js"></script>
+    <script src="/lib/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script> 
+    <script src="js/controllers/flickr.ctrl.js"></script>
     <script src="js/controllers/twitter.ctrl.js"></script>
     <!-- endbuild -->
 
@@ -73,8 +75,8 @@
 
 
     <!-- Header -->
-    <a name="about"></a>
-    <div class="intro-header" data-ng-controller="flickrBgCtrl" data-ng-style="{'background-image': 'url(' + photoUrl + ')'}">
+    <a name="header"></a>
+    <div class="intro-header" data-ng-controller="flickrCtrl" data-ng-style="{'background-image': 'url(' + photoUrl + ')'}">
         <div class="container">
 
             <div class="row">
@@ -106,7 +108,7 @@
 
     <!-- Page Content -->
 
-	<a  name="services"></a>
+	<a  name="about"></a>
     <div class="content-section-a">
 
         <div class="container">
@@ -160,14 +162,22 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-5 col-sm-6">
+                <div class="col-md-12">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Google Web Fonts and<br>Font Awesome Icons</h2>
-                    <p class="lead">This template features the 'Lato' font, part of the <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.</p>
+                    <h2 class="section-heading">Photography</h2>
+                    <p class="lead">A random selection of my photographs are shown below. You may click to view a larger version, or <a href="https://www.flickr.com/photos/andph112/">view all the photos I have uploaded on Flickr</a>.</p>
                 </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="img/phones.png" alt="">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul data-ng-controller="galleryCtrl">
+                        <li data-ng-repeat="photo in galleryPhotos">
+                            <a ng-click="openLightboxModal($index)">
+                              <img data-ng-src="{{photo.thumbUrl}}" class="img-thumbnail">
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 

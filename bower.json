@@ -30,6 +30,8 @@
   "dependencies": {
     "bootstrap": "~3.3.5",
     "angular": "~1.4.8",
-    "ngtweet": "~0.2.0"
+    "ngtweet": "~0.2.0",
+    "angular-bootstrap-lightbox": "~0.10.0",
+    "angular-bootstrap": "~0.14.3"
   }
 }

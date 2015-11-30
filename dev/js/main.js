@@ -1,3 +1,4 @@
 'use strict';
 
-angular.module('aphApp', ['ngtweet']);
+// Module declaration stub
+angular.module('aphApp', ['ngtweet', 'bootstrapLightbox']);
