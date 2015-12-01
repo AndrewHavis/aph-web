@@ -23,8 +23,9 @@ function flickrCtrl($scope, $http) {
         $scope.photos = response.photos.photo;
         
         // Pick some random photos for our gallery
-        $scope.numPhotos = 6;
+            // Initialise gallery
         $scope.gallery = [];
+        $scope.numPhotos = 6;
 
         for (var i = 0; i < $scope.numPhotos; i++) {
             var item = {};
@@ -37,6 +38,25 @@ function flickrCtrl($scope, $http) {
             item.url_l = photoItem.url_l;
             item.url_o = photoItem.url_o;
             $scope.gallery.push(item);
+        }
+        
+        // *** Angular Bootstrap Carousel ***
+    
+        // How long each picture should show for, in milliseconds
+        $scope.interval = 5000;
+
+        // Should the carousel go back to the beginning when we reach the end?
+        $scope.wrap = true;
+
+        // Declare our slide object
+        var slides = $scope.slides = [];
+
+        // Now do the business of gathering our images
+        for (var j = 0; j < $scope.gallery.length; j++) {
+            slides.push({
+                image: $scope.gallery[j].url_m,
+                text: $scope.gallery[j].title
+            });
         }
         
     })
