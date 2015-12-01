@@ -15,7 +15,7 @@ twitterCtrl.$inject = ['$scope', '$http'];
 function twitterCtrl($scope, $http) {
     
     // Get my information from the Twitter API
-    $http.get('/api/twitter/me')
+    $http.post('/api/twitter/me')
     .success(function(response) {
         
         // We have our data, so return it to Angular
@@ -36,7 +36,7 @@ function twitterCtrl($scope, $http) {
         console.log(error);
         
     });
-    $http.get('/api/twitter/tweets')
+    $http.post('/api/twitter/tweets')
     .success(function(response) {
         
         // We have our data, so return it to Angular

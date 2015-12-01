@@ -22,12 +22,13 @@
     
     <script src="/lib/angular/angular.min.js"></script>
     <script src="/lib/ngtweet/dist/ngtweet.min.js"></script>
+    <script src="/lib/angular-bootstrap/ui-bootstrap.min.js"></script>
     
     <!-- build:js js/aph-web.js -->
-    <script src="js/main.js"></script>
-    <script src="/lib/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script> 
+    <script src="js/main.js"></script> 
     <script src="js/controllers/flickr.ctrl.js"></script>
     <script src="js/controllers/twitter.ctrl.js"></script>
+    <script src="js/controllers/carousel.ctrl.js"></script>
     <!-- endbuild -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,7 +40,7 @@
 
 </head>
 
-<body data-ng-controller="twitterCtrl">
+<body>
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
@@ -109,7 +110,7 @@
     <!-- Page Content -->
 
 	<a  name="about"></a>
-    <div class="content-section-a">
+    <div class="content-section-a" data-ng-controller="twitterCtrl">
 
         <div class="container">
             <div class="row">
@@ -131,7 +132,7 @@
     </div>
     <!-- /.content-section-a -->
 
-    <div class="content-section-b" data-ng-show="twitterJSON">
+    <div class="content-section-b" data-ng-controller="twitterCtrl" data-ng-show="twitterJSON">
 
         <div class="container">
 
@@ -157,7 +158,7 @@
     </div>
     <!-- /.content-section-b -->
 
-    <div class="content-section-a">
+    <div data-ng-controller="flickrCtrl" class="content-section-a">
 
         <div class="container">
 
@@ -166,18 +167,19 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Photography</h2>
-                    <p class="lead">A random selection of my photographs are shown below. You may click to view a larger version, or <a href="https://www.flickr.com/photos/andph112/">view all the photos I have uploaded on Flickr</a>.</p>
+                    <p class="lead">A random selection of my photographs are shown below. You may <a href="https://www.flickr.com/photos/andph112/">view all the photos I have uploaded on Flickr</a>.</p>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" data-ng-controller="carouselCtrl">
                 <div class="col-md-12">
-                    <ul data-ng-controller="galleryCtrl">
-                        <li data-ng-repeat="photo in galleryPhotos">
-                            <a ng-click="openLightboxModal($index)">
-                              <img data-ng-src="{{photo.thumbUrl}}" class="img-thumbnail">
-                            </a>
-                        </li>
-                    </ul>
+                    <uib-carousel interval="interval" no-wrap="!wrap">
+                        <uib-slide ng-repeat="slide in slides" active="slide.active">
+                            <img ng-src="{{slide.image}}" style="margin:auto;">
+                            <div>
+                                <p>{{slide.text}}</p>
+                            </div>
+                        </uib-slide>
+                    </uib-carousel>
                 </div>
             </div>
 

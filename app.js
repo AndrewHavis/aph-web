@@ -80,8 +80,8 @@ twitter.get('users/show', {"user_id": credentials.twitter.user_id}, function(err
 app.use('/lib', express.static(__dirname + '/bower_components'));
 
 // Flickr API
-app.use('/api/flickr', function(req, res) {
-    flickr.get('photosets.getPhotos', {"photoset_id": flkrKeys.photoset_id, "user_id": flkrKeys.user_id, "extras": "url_l", "media": "photos"}, function(err, result) {
+app.post('/api/flickr/photos', function(req, res) {
+    flickr.get('people.getPublicPhotos', {"user_id": flkrKeys.user_id, "extras": "url_t, url_m, url_l, url_o"}, function(err, result) {
         if (!err) {
             res.send(result);
         }
@@ -91,7 +91,18 @@ app.use('/api/flickr', function(req, res) {
     });
 });
 
-app.use('/api/twitter/me', function(req, res) {
+app.post('/api/flickr/set/:setId', function(req, res) {
+    flickr.get('photosets.getPhotos', {"photoset_id": req.params.setId, "user_id": flkrKeys.user_id, "extras": "url_l", "media": "photos"}, function(err, result) {
+        if (!err) {
+            res.send(result);
+        }
+        else {
+            console.error('ERROR: Cannot access Flickr API\n' + err);
+        }
+    });
+});
+
+app.post('/api/twitter/me', function(req, res) {
     twitter.get('users/show', {"user_id": credentials.twitter.user_id}, function(err, result) {
         if (!err) {
             res.send(result);
@@ -102,7 +113,7 @@ app.use('/api/twitter/me', function(req, res) {
     });
 });
 
-app.use('/api/twitter/tweets', function(req, res) {
+app.post('/api/twitter/tweets', function(req, res) {
     twitter.get('statuses/user_timeline', {"user_id": credentials.twitter.user_id, count: 5, include_rts: true}, function(err, result) {
         if (!err) {
             res.send(result);
