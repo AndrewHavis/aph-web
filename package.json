@@ -6,8 +6,8 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "4.12.x",
-    "cfenv": "1.0.x"
+    "cfenv": "1.0.x",
+    "express": "4.12.x"
   },
   "repository": {},
   "engines": {
@@ -27,6 +27,7 @@
     "grunt-mkdir": "^0.1.2",
     "grunt-sass": "^1.1.0",
     "grunt-usemin": "^3.1.1",
+    "grunt-wiredep": "^2.0.0",
     "load-grunt-tasks": "^3.3.0",
     "node-flickr": "~1.0.0",
     "time-grunt": "^1.2.2",
