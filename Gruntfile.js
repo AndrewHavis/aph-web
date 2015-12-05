@@ -60,6 +60,14 @@ module.exports = function(grunt) {
             }
         },
         
+        wiredep: {
+            task: {
+                src: [
+                    'dev/index.html'
+                ]
+            }
+        },
+        
         sass: {
             options: {
                 sourceMap: true
@@ -127,7 +135,7 @@ module.exports = function(grunt) {
     // Default task(s).
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('init', ['copy:init']);
-    grunt.registerTask('build', ['jshint:all', 'clean:dist', 'mkdir:all', 'sass:dist', 'copy:main', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:public', 'filerev', 'usemin']);
+    grunt.registerTask('build', ['jshint:all', 'clean:dist', 'mkdir:all', 'wiredep', 'sass:dist', 'copy:main', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:public', 'filerev', 'usemin']);
     grunt.registerTask('server', ['express:dev', 'watch']);
 
 };
