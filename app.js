@@ -18,26 +18,26 @@ var app = express();
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
-// Go to the appropriate environment
-var env = app.get('env');
-console.log('Using the ' + env + ' environment.');
-if (env === 'development') {
-    // serve the files out of ./dev as our development files
-    app.use(express.static(__dirname + '/dev'));
-}
-else {
-    // serve the files out of ./public as our main files    
-    app.use(express.static(__dirname + '/public'));
-}
-
 // Get credentials from Cloud Foundry, or credentials.json if running locally
 if (!!appEnv.isLocal) {
     console.log('Running locally');
     var credentials = require('./credentials.json');
+    // Go to the appropriate environment
+    var env = app.get('env');
+    console.log('Using the ' + env + ' environment.');
+    if (env === 'development') {
+        // serve the files out of ./dev as our development files
+        app.use(express.static(__dirname + '/dev'));
+    }
+    else {
+        // serve the files out of ./public as our main files    
+        app.use(express.static(__dirname + '/public'));
+    }
 }
 else {
     console.log('Running on Bluemix');
     var credentials = appEnv.getServices();
+    console.log(credentials);
 }
 
 // Import Flickr API
