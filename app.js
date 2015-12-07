@@ -41,6 +41,7 @@ else {
     // Get our credentials from the Bluemix environment variables
     var credentials = {};
     credentials.twitter = {};
+    credentials.twitter.user_id = process.env.twitter_user_id;
     credentials.twitter.consumer_key = process.env.twitter_consumer_key;
     credentials.twitter.consumer_secret = process.env.twitter_consumer_secret;
     credentials.twitter.access_token = process.env.twitter_access_token;
@@ -73,7 +74,7 @@ flickr.get('people.getInfo', {"user_id": flkrKeys.user_id}, function(err, result
         console.log('Using photostream of Flickr user \'' + result.person.username._content + '\'');
     }
     else {
-        console.error('ERROR: Cannot access Flickr API\n' + err);
+        console.error('ERROR: Cannot access Flickr API\n' + JSON.stringify(err));
     }
 });
 
@@ -83,7 +84,7 @@ twitter.get('users/show', {"user_id": credentials.twitter.user_id}, function(err
         console.log('Twitter username: @' + result.screen_name);
     }
     else {
-        console.error('ERROR: Cannot access Twitter API\n' + err);
+        console.error('ERROR: Cannot access Twitter API\n' + JSON.stringify(err));
     }
 });
 
@@ -99,7 +100,7 @@ app.post('/api/flickr/photos', function(req, res) {
             res.send(result);
         }
         else {
-            console.error('ERROR: Cannot access Flickr API\n' + err);
+            console.error('ERROR: Cannot access Flickr API\n' + JSON.stringify(err));
         }
     });
 });
@@ -110,7 +111,7 @@ app.post('/api/flickr/set/:setId', function(req, res) {
             res.send(result);
         }
         else {
-            console.error('ERROR: Cannot access Flickr API\n' + err);
+            console.error('ERROR: Cannot access Flickr API\n' + JSON.stringify(err));
         }
     });
 });
@@ -121,7 +122,7 @@ app.post('/api/twitter/me', function(req, res) {
             res.send(result);
         }
         else {
-            console.error('ERROR: Cannot access Twitter API\n' + err);
+            console.error('ERROR: Cannot access Twitter API\n' + JSON.stringify(err));
         }
     });
 });
@@ -132,7 +133,7 @@ app.post('/api/twitter/tweets', function(req, res) {
             res.send(result);
         }
         else {
-            console.error('ERROR: Cannot access Twitter API\n' + err);
+            console.error('ERROR: Cannot access Twitter API\n' + JSON.stringify(err));
         }
     });
 });
