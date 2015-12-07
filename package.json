@@ -1,7 +1,7 @@
 {
-  "name": "NodejsStarterApp",
+  "name": "aph-web",
   "version": "0.0.1",
-  "description": "A sample nodejs app for Bluemix",
+  "description": "The second version of my website at andrew-havis.co.uk",
   "scripts": {
     "start": "node app.js"
   },
@@ -9,7 +9,6 @@
     "cfenv": "1.0.x",
     "express": "4.12.x"
   },
-  "repository": {},
   "engines": {
     "node": "0.12.x"
   },

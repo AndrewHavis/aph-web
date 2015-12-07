@@ -6,7 +6,7 @@
 body {
   width: 100%;
   height: 100%;
-  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif" !important;
   font-weight: 700; }
 
 html {
@@ -14,27 +14,27 @@ html {
   height: 100%; }
 
 h1 {
-  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif" !important;
   font-weight: 700; }
 
 h2 {
-  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif" !important;
   font-weight: 700; }
 
 h3 {
-  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif" !important;
   font-weight: 700; }
 
 h4 {
-  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif" !important;
   font-weight: 700; }
 
 h5 {
-  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif" !important;
   font-weight: 700; }
 
 h6 {
-  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+  font-family: "Muli", "Helvetica Neue", "Helvetica", "Arial", "sans-serif" !important;
   font-weight: 700; }
 
 .topnav {

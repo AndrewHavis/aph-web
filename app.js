@@ -18,26 +18,40 @@ var app = express();
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
-// Go to the appropriate environment
-var env = app.get('env');
-console.log('Using the ' + env + ' environment.');
-if (env === 'development') {
-    // serve the files out of ./dev as our development files
-    app.use(express.static(__dirname + '/dev'));
-}
-else {
-    // serve the files out of ./public as our main files    
-    app.use(express.static(__dirname + '/public'));
-}
-
 // Get credentials from Cloud Foundry, or credentials.json if running locally
 if (!!appEnv.isLocal) {
     console.log('Running locally');
     var credentials = require('./credentials.json');
+    // Go to the appropriate environment
+    var env = app.get('env');
+    console.log('Using the ' + env + ' environment.');
+    if (env === 'development') {
+        // serve the files out of ./dev as our development files
+        app.use(express.static(__dirname + '/dev'));
+    }
+    else {
+        // serve the files out of ./public as our main files    
+        app.use(express.static(__dirname + '/public'));
+    }
 }
 else {
     console.log('Running on Bluemix');
-    var credentials = appEnv.getServices();
+    app.use(express.static(__dirname + '/public'));
+    
+    // Get our credentials from the Bluemix environment variables
+    var credentials = {};
+    credentials.twitter = {};
+    credentials.twitter.user_id = process.env.twitter_user_id;
+    credentials.twitter.consumer_key = process.env.twitter_consumer_key;
+    credentials.twitter.consumer_secret = process.env.twitter_consumer_secret;
+    credentials.twitter.access_token = process.env.twitter_access_token;
+    credentials.twitter.access_secret = process.env.twitter_access_secret;
+    credentials.flickr = {};
+    credentials.flickr.user_id = process.env.flickr_user_id;
+    credentials.flickr.photoset_id = process.env.flickr_photoset_id;
+    credentials.flickr.api_key = process.env.flickr_api_key;
+    credentials.flickr.secret = process.env.flickr_secret;
+    
 }
 
 // Import Flickr API
@@ -60,7 +74,7 @@ flickr.get('people.getInfo', {"user_id": flkrKeys.user_id}, function(err, result
         console.log('Using photostream of Flickr user \'' + result.person.username._content + '\'');
     }
     else {
-        console.error('ERROR: Cannot access Flickr API\n' + err);
+        console.error('ERROR: Cannot access Flickr API\n' + JSON.stringify(err));
     }
 });
 
@@ -70,7 +84,7 @@ twitter.get('users/show', {"user_id": credentials.twitter.user_id}, function(err
         console.log('Twitter username: @' + result.screen_name);
     }
     else {
-        console.error('ERROR: Cannot access Twitter API\n' + err);
+        console.error('ERROR: Cannot access Twitter API\n' + JSON.stringify(err));
     }
 });
 
@@ -86,7 +100,7 @@ app.post('/api/flickr/photos', function(req, res) {
             res.send(result);
         }
         else {
-            console.error('ERROR: Cannot access Flickr API\n' + err);
+            console.error('ERROR: Cannot access Flickr API\n' + JSON.stringify(err));
         }
     });
 });
@@ -97,7 +111,7 @@ app.post('/api/flickr/set/:setId', function(req, res) {
             res.send(result);
         }
         else {
-            console.error('ERROR: Cannot access Flickr API\n' + err);
+            console.error('ERROR: Cannot access Flickr API\n' + JSON.stringify(err));
         }
     });
 });
@@ -108,7 +122,7 @@ app.post('/api/twitter/me', function(req, res) {
             res.send(result);
         }
         else {
-            console.error('ERROR: Cannot access Twitter API\n' + err);
+            console.error('ERROR: Cannot access Twitter API\n' + JSON.stringify(err));
         }
     });
 });
@@ -119,7 +133,7 @@ app.post('/api/twitter/tweets', function(req, res) {
             res.send(result);
         }
         else {
-            console.error('ERROR: Cannot access Twitter API\n' + err);
+            console.error('ERROR: Cannot access Twitter API\n' + JSON.stringify(err));
         }
     });
 });
