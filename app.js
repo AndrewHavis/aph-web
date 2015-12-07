@@ -36,8 +36,21 @@ if (!!appEnv.isLocal) {
 }
 else {
     console.log('Running on Bluemix');
-    var credentials = appEnv.getServices();
-    console.log(credentials);
+    app.use(express.static(__dirname + '/public'));
+    
+    // Get our credentials from the Bluemix environment variables
+    var credentials = {};
+    credentials.twitter = {};
+    credentials.twitter.consumer_key = process.env.twitter_consumer_key;
+    credentials.twitter.consumer_secret = process.env.twitter_consumer_secret;
+    credentials.twitter.access_token = process.env.twitter_access_token;
+    credentials.twitter.access_secret = process.env.twitter_access_secret;
+    credentials.flickr = {};
+    credentials.flickr.user_id = process.env.flickr_user_id;
+    credentials.flickr.photoset_id = process.env.flickr_photoset_id;
+    credentials.flickr.api_key = process.env.flickr_api_key;
+    credentials.flickr.secret = process.env.flickr_secret;
+    
 }
 
 // Import Flickr API
