@@ -5,4 +5,4 @@ applications:
   domain: eu-gb.mybluemix.net
   name: aph-web
   host: aph-web
-  disk_quota: 1024M
+  disk_quota: 512M
