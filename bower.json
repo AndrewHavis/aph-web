@@ -28,7 +28,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.5",
+    "bootstrap": "3.3.4",
     "angular": "~1.4.8",
     "ngtweet": "~0.2.0",
     "angular-bootstrap": "~0.14.3"

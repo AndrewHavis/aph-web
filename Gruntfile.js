@@ -47,7 +47,7 @@ module.exports = function(grunt) {
                     {expand: true, cwd: './theme/', src: ['**'], dest: './dev/'},
                 ],
             },
-            main: {
+            tmp: {
                 files: [
                     {expand: true, cwd: './dev', src: ['**'], dest: './.tmp/'},
                 ],
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
         wiredep: {
             task: {
                 src: [
-                    'dev/index.html'
+                    '.tmp/index.html'
                 ]
             }
         },
@@ -80,7 +80,7 @@ module.exports = function(grunt) {
         },
         
         useminPrepare: {
-            html: './dev/index.html',
+            html: './.tmp/index.html',
             options: {
                 dest: './public'
             }
@@ -135,7 +135,7 @@ module.exports = function(grunt) {
     // Default task(s).
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('init', ['copy:init']);
-    grunt.registerTask('build', ['jshint:all', 'clean:dist', 'mkdir:all', 'wiredep', 'sass:dist', 'copy:main', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:public', 'filerev', 'usemin']);
+    grunt.registerTask('build', ['jshint:all', 'clean:dist', 'mkdir:all', 'sass:dist', 'copy:tmp', 'wiredep', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:public', 'filerev', 'usemin']);
     grunt.registerTask('server', ['express:dev', 'watch']);
 
 };
