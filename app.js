@@ -18,6 +18,9 @@ var app = express();
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
+// Universal analytics
+var ua = require('universal-analytics');
+
 // Get credentials from Cloud Foundry, or credentials.json if running locally
 if (!!appEnv.isLocal) {
     console.log('Running locally');
@@ -31,7 +34,15 @@ if (!!appEnv.isLocal) {
     }
     else {
         // serve the files out of ./public as our main files    
-        app.use(express.static(__dirname + '/public'));
+        app.use(express.static(__dirname + '/public'), function(req, res) {
+            if (!!res) {
+                // We've got a page view, so send it to Google Analytics
+                var visitor = ua(credentials.google_analytics.account_id);
+                visitor.pageview('/', 'andrew-havis.co.uk', 'http://andrew-havis.co.uk', function(err) {
+                    console.error('Cannot log page view\n' + err);
+                });
+            }
+        });
     }
 }
 else {
@@ -51,6 +62,8 @@ else {
     credentials.flickr.photoset_id = process.env.flickr_photoset_id;
     credentials.flickr.api_key = process.env.flickr_api_key;
     credentials.flickr.secret = process.env.flickr_secret;
+    credentials.google_analytics = {};
+    credentials.google_analytics.account_id = process.env.google_analytics_account_id
     
 }
 

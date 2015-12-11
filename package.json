@@ -32,6 +32,7 @@
     "load-grunt-tasks": "^3.3.0",
     "node-flickr": "~1.0.0",
     "time-grunt": "^1.2.2",
-    "twitter": "^1.2.5"
+    "twitter": "^1.2.5",
+    "universal-analytics": "^0.3.9"
   }
 }
