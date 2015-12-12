@@ -34,15 +34,7 @@ if (!!appEnv.isLocal) {
     }
     else {
         // serve the files out of ./public as our main files    
-        app.use(express.static(__dirname + '/public'), function(req, res) {
-            if (!!res) {
-                // We've got a page view, so send it to Google Analytics
-                var visitor = ua(credentials.google_analytics.account_id);
-                visitor.pageview('/', 'andrew-havis.co.uk', 'http://andrew-havis.co.uk', function(err) {
-                    console.error('Cannot log page view\n' + err);
-                });
-            }
-        });
+        app.use(express.static(__dirname + '/public'));
     }
 }
 else {
@@ -80,6 +72,10 @@ var twitter = new Twitter({
     access_token_key: credentials.twitter.access_token,
     access_token_secret: credentials.twitter.access_secret
 });
+
+// We've got a page view, so send it to Google Analytics
+var visitor = ua(credentials.google_analytics.account_id);
+visitor.pageview('/').send();
 
 // Retrieve username to see if Flickr API is working
 flickr.get('people.getInfo', {"user_id": flkrKeys.user_id}, function(err, result) {
