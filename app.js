@@ -55,7 +55,7 @@ else {
     credentials.flickr.api_key = process.env.flickr_api_key;
     credentials.flickr.secret = process.env.flickr_secret;
     credentials.google_analytics = {};
-    credentials.google_analytics.account_id = process.env.google_analytics_account_id
+    credentials.google_analytics.account_id = process.env.google_analytics_account_id;
     
 }
 
