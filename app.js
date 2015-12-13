@@ -30,7 +30,6 @@ var ga = {
         dp: req.path, 
         dt: title, 
         dh: 'http://andrew-havis.co.uk/',
-        uip: req.ip,
         ua: req.headers['user-agent']
       };
       if (req.visitor) {
