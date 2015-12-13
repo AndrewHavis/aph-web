@@ -20,7 +20,8 @@ var appEnv = cfenv.getAppEnv();
 
 // Universal analytics
 var ua = require('universal-analytics');
-// Universal Analytics
+var _ = require('lodash');
+var udataPrev = {};
 app.use(ua.middleware('UA-25684096-2'));
 var ga = {
   pageview: function(title) {
@@ -32,17 +33,21 @@ var ga = {
         uip: req.ip,
         ua: req.headers['user-agent']
       };
-      if (req.visitor) { 
-        req.visitor
-           .pageview(udata)
-           .send();
+      if (req.visitor) {
+        // Exclude API calls and duplicates
+        if (req.path.indexOf('/api/') === -1 && !(_.isEqual(udata, udataPrev))) {
+            req.visitor
+               .pageview(udata)
+               .send();
+            udataPrev = udata;
+        }
       }
       next();
     };
   }
 };
 
-// Get credentials from Cloud Foundry, or credentials.json if running locally
+// Get  from Cloud Foundry, or credentials.json if running locally
 if (!!appEnv.isLocal) {
     console.log('Running locally');
     var credentials = require('./credentials.json');
@@ -54,8 +59,9 @@ if (!!appEnv.isLocal) {
         app.use(express.static(__dirname + '/dev'));
     }
     else {
-        // serve the files out of ./public as our main files and initalise universal analytics  
-        app.use(express.static(__dirname + '/public'), ga.pageview('andrew-havis.co.uk'));
+        // serve the files out of ./public as our main files and initalise universal analytics
+        app.get('/', ga.pageview('andrew-havis.co.uk'));
+        app.use(express.static(__dirname + '/public'));
     }
 }
 else {
@@ -93,10 +99,6 @@ var twitter = new Twitter({
     access_token_key: credentials.twitter.access_token,
     access_token_secret: credentials.twitter.access_secret
 });
-
-// We've got a page view, so send it to Google Analytics
-var visitor = ua(credentials.google_analytics.account_id);
-visitor.pageview('/').send();
 
 // Retrieve username to see if Flickr API is working
 flickr.get('people.getInfo', {"user_id": flkrKeys.user_id}, function(err, result) {
