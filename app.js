@@ -20,7 +20,8 @@ var appEnv = cfenv.getAppEnv();
 
 // Universal analytics
 var ua = require('universal-analytics');
-var visitor = ua('UA-25684096-2');
+var uuid = require('uuid').v4();
+var visitor = ua('UA-25684096-2', uuid);
 
 // Get  from Cloud Foundry, or credentials.json if running locally
 if (!!appEnv.isLocal) {
