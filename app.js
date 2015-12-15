@@ -20,6 +20,7 @@ var appEnv = cfenv.getAppEnv();
 
 // Universal analytics
 var ua = require('universal-analytics');
+var uuid = require('uuid').v4();
 var visitor = ua('UA-25684096-2');
 
 // Get  from Cloud Foundry, or credentials.json if running locally
@@ -36,13 +37,13 @@ if (!!appEnv.isLocal) {
     else {
         // serve the files out of ./public as our main files and initalise universal analytics
         app.use(express.static(__dirname + '/public'));
-        visitor.pageview('/').send();
+        visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid}).send();
     }
 }
 else {
     console.log('Running on Bluemix');
     app.use(express.static(__dirname + '/public'));
-    visitor.pageview('/').send();
+    visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid}).send();
     
     // Get our credentials from the Bluemix environment variables
     var credentials = {};
