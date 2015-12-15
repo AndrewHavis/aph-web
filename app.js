@@ -20,31 +20,7 @@ var appEnv = cfenv.getAppEnv();
 
 // Universal analytics
 var ua = require('universal-analytics');
-var _ = require('lodash');
-var udataPrev = {};
-app.use(ua.middleware('UA-25684096-2'));
-var ga = {
-  pageview: function(title) {
-    return function(req,res,next) {
-      var udata = {
-        dp: req.path, 
-        dt: title, 
-        dh: 'http://andrew-havis.co.uk/',
-        ua: req.headers['user-agent']
-      };
-      if (req.visitor) {
-        // Exclude API calls and duplicates
-        if (req.path.indexOf('/api/') === -1 && !(_.isEqual(udata, udataPrev))) {
-            req.visitor
-               .pageview(udata)
-               .send();
-            udataPrev = udata;
-        }
-      }
-      next();
-    };
-  }
-};
+var visitor = ua('UA-25684096-2');
 
 // Get  from Cloud Foundry, or credentials.json if running locally
 if (!!appEnv.isLocal) {
@@ -59,13 +35,14 @@ if (!!appEnv.isLocal) {
     }
     else {
         // serve the files out of ./public as our main files and initalise universal analytics
-        app.get('/', ga.pageview('andrew-havis.co.uk'));
         app.use(express.static(__dirname + '/public'));
+        visitor.pageview('/').send();
     }
 }
 else {
     console.log('Running on Bluemix');
-    app.use(express.static(__dirname + '/public'), ga.pageview('andrew-havis.co.uk'));
+    app.use(express.static(__dirname + '/public'));
+    visitor.pageview('/').send();
     
     // Get our credentials from the Bluemix environment variables
     var credentials = {};

@@ -30,7 +30,6 @@
     "grunt-usemin": "^3.1.1",
     "grunt-wiredep": "^2.0.0",
     "load-grunt-tasks": "^3.3.0",
-    "lodash": "^3.10.1",
     "node-flickr": "~1.0.0",
     "time-grunt": "^1.2.2",
     "twitter": "^1.2.5",
