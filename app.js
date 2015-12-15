@@ -36,14 +36,19 @@ if (!!appEnv.isLocal) {
     }
     else {
         // serve the files out of ./public as our main files and initalise universal analytics
-        app.use(express.static(__dirname + '/public'));
-        visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid}).send();
+        app.use(express.static(__dirname + '/public'), function(req, res, next) {
+            visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.ip, ua: req.headers['user-agent']}).send();
+            next();
+        });
     }
 }
 else {
     console.log('Running on Bluemix');
-    app.use(express.static(__dirname + '/public'));
-    visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid}).send();
+    // serve the files out of ./public as our main files and initalise universal analytics
+    app.use(express.static(__dirname + '/public'), function(req, res, next) {
+        visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.ip, ua: req.headers['user-agent']}).send();
+        next();
+    });
     
     // Get our credentials from the Bluemix environment variables
     var credentials = {};
