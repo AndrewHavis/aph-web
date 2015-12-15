@@ -38,7 +38,6 @@ if (!!appEnv.isLocal) {
     else {
         // serve the files out of ./public as our main files and initalise universal analytics
         app.use(express.static(__dirname + '/public'), function(req, res, next) {
-            console.log(req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip);
             visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip, ua: req.headers['user-agent']}).send();
             next();
         });
@@ -82,10 +81,6 @@ var twitter = new Twitter({
     consumer_secret: credentials.twitter.consumer_secret,
     access_token_key: credentials.twitter.access_token,
     access_token_secret: credentials.twitter.access_secret
-});
-
-app.get('/ip', function(req, res) {
-    res.send(req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip);
 });
 
 // Retrieve username to see if Flickr API is working
