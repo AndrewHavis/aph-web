@@ -14,6 +14,7 @@ var cfenv = require('cfenv');
 
 // create a new express server
 var app = express();
+app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal', '159.8.128.116']); // Used to get remote IP address rather than that of the proxy
 
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
@@ -23,7 +24,7 @@ var ua = require('universal-analytics');
 var uuid = require('uuid').v4();
 var visitor = ua('UA-25684096-2');
 
-// Get  from Cloud Foundry, or credentials.json if running locally
+// Get credentials from Cloud Foundry, or credentials.json if running locally
 if (!!appEnv.isLocal) {
     console.log('Running locally');
     var credentials = require('./credentials.json');
@@ -37,7 +38,8 @@ if (!!appEnv.isLocal) {
     else {
         // serve the files out of ./public as our main files and initalise universal analytics
         app.use(express.static(__dirname + '/public'), function(req, res, next) {
-            visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.ip, ua: req.headers['user-agent']}).send();
+            console.log(req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip);
+            visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip, ua: req.headers['user-agent']}).send();
             next();
         });
     }
@@ -46,7 +48,7 @@ else {
     console.log('Running on Bluemix');
     // serve the files out of ./public as our main files and initalise universal analytics
     app.use(express.static(__dirname + '/public'), function(req, res, next) {
-        visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.ip, ua: req.headers['user-agent']}).send();
+        visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip, ua: req.headers['user-agent']}).send();
         next();
     });
     
@@ -83,7 +85,7 @@ var twitter = new Twitter({
 });
 
 app.get('/ip', function(req, res) {
-    res.send(req.ip);
+    res.send(req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip);
 });
 
 // Retrieve username to see if Flickr API is working
