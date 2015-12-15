@@ -82,6 +82,10 @@ var twitter = new Twitter({
     access_token_secret: credentials.twitter.access_secret
 });
 
+app.get('/ip', function(req, res) {
+    res.send(req.ip);
+});
+
 // Retrieve username to see if Flickr API is working
 flickr.get('people.getInfo', {"user_id": flkrKeys.user_id}, function(err, result) {
     if (!err) {
