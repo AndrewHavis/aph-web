@@ -3,6 +3,6 @@ applications:
   memory: 128M
   instances: 1
   domain: eu-gb.mybluemix.net
-  name: aph-web
-  host: aph-web
+  name: aph-web-test
+  host: aph-web-test
   disk_quota: 512M

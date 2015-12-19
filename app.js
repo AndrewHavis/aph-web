@@ -14,39 +14,17 @@ var cfenv = require('cfenv');
 
 // create a new express server
 var app = express();
+app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal', '159.8.128.116']); // Used to get remote IP address rather than that of the proxy
 
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
 // Universal analytics
 var ua = require('universal-analytics');
-var _ = require('lodash');
-var udataPrev = {};
-app.use(ua.middleware('UA-25684096-2'));
-var ga = {
-  pageview: function(title) {
-    return function(req,res,next) {
-      var udata = {
-        dp: req.path, 
-        dt: title, 
-        dh: 'http://andrew-havis.co.uk/',
-        ua: req.headers['user-agent']
-      };
-      if (req.visitor) {
-        // Exclude API calls and duplicates
-        if (req.path.indexOf('/api/') === -1 && !(_.isEqual(udata, udataPrev))) {
-            req.visitor
-               .pageview(udata)
-               .send();
-            udataPrev = udata;
-        }
-      }
-      next();
-    };
-  }
-};
+var uuid = require('uuid').v4();
+var visitor = ua('UA-25684096-2');
 
-// Get  from Cloud Foundry, or credentials.json if running locally
+// Get credentials from Cloud Foundry, or credentials.json if running locally
 if (!!appEnv.isLocal) {
     console.log('Running locally');
     var credentials = require('./credentials.json');
@@ -59,13 +37,19 @@ if (!!appEnv.isLocal) {
     }
     else {
         // serve the files out of ./public as our main files and initalise universal analytics
-        app.get('/', ga.pageview('andrew-havis.co.uk'));
-        app.use(express.static(__dirname + '/public'));
+        app.use(express.static(__dirname + '/public'), function(req, res, next) {
+            visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip, ua: req.headers['user-agent']}).send();
+            next();
+        });
     }
 }
 else {
     console.log('Running on Bluemix');
-    app.use(express.static(__dirname + '/public'), ga.pageview('andrew-havis.co.uk'));
+    // serve the files out of ./public as our main files and initalise universal analytics
+    app.use(express.static(__dirname + '/public'), function(req, res, next) {
+        visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip, ua: req.headers['user-agent']}).send();
+        next();
+    });
     
     // Get our credentials from the Bluemix environment variables
     var credentials = {};
