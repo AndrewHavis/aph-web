@@ -1,4 +1,4 @@
 'use strict';
 
 // Module declaration stub
-angular.module('aphApp', ['ngtweet', 'ui.bootstrap']);
+angular.module('aphApp', ['ngtweet', 'ui.bootstrap', 'angular-snow']);
