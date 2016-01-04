@@ -67,7 +67,7 @@ function flickrCtrl($scope, $http) {
         
     });
         
-    $http.post('/api/flickr/set/72157662564650005')
+    $http.post('/api/flickr/set/72157627139957661')
     .success(function(response) {
         
         // We have our data, so return it to Angular
