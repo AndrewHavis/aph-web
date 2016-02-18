@@ -157,7 +157,7 @@
                     <h2 class="section-heading">Tweets</h2>
                     <p class="lead">I have tweeted <span class="tweetCount twitterMetric">{{tweetCount | number}}</span> times, and have <span class="followerCount twitterMetric">{{followerCount | number}}</span> followers with <span class="followCount twitterMetric">{{followCount | number }}</span> follows.</p>
                     <h3>Recent Tweets</h3>
-                    <div data-ng-repeat="tweet in tweetsJSON">
+                    <div data-ng-repeat="tweet in tweetsJSON | limitTo: numTweets">
                         <twitter-widget twitter-widget-id="tweet.id_str" data-ng-show="tweet.id_str"></twitter-widget>
                     </div>
                 </div>

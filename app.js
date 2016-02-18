@@ -143,7 +143,7 @@ app.post('/api/twitter/me', function(req, res) {
 });
 
 app.post('/api/twitter/tweets', function(req, res) {
-    twitter.get('statuses/user_timeline', {"user_id": credentials.twitter.user_id, count: 5, include_rts: true}, function(err, result) {
+    twitter.get('statuses/user_timeline', {"user_id": credentials.twitter.user_id, include_rts: true, exclude_replies: true}, function(err, result) {
         if (!err) {
             res.send(result);
         }

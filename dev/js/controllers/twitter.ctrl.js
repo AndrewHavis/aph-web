@@ -39,6 +39,9 @@ function twitterCtrl($scope, $http) {
     $http.post('/api/twitter/tweets')
     .success(function(response) {
         
+        // Specify how many tweets to show
+        $scope.numTweets = 5;
+        
         // We have our data, so return it to Angular
         console.log(response);
         $scope.tweetsJSON = response;
