@@ -32,8 +32,14 @@ if (!!appEnv.isLocal) {
     var env = app.get('env');
     console.log('Using the ' + env + ' environment.');
     if (env === 'development') {
+        
         // serve the files out of ./dev as our development files
         app.use(express.static(__dirname + '/dev'));
+        
+        // Set up the Morgan request logger
+        var morgan = require('morgan');
+        app.use(morgan('combined'));
+        
     }
     else {
         // serve the files out of ./public as our main files and initalise universal analytics
@@ -151,6 +157,11 @@ app.post('/api/twitter/tweets', function(req, res) {
             console.error('ERROR: Cannot access Twitter API\n' + JSON.stringify(err));
         }
     });
+});
+
+app.get('/test', function(req, res) {
+    res.set('Content-Type', 'application/json');
+    res.send({'test':'This is a test page.'});
 });
 
 // start server on the specified port and binding host
