@@ -5,11 +5,9 @@ Version 2.0 of andrew-havis.co.uk
 
 This repository contains the code behind my personal website at http://www.andrew-havis.co.uk/. If you would like to run this locally, please feel free to clone or fork this repository, and then do the following.
 
-1. Install the dependencies using the following command:
-    npm install && bower install
+1. Install the dependencies using `npm install && bower install`.
 
-2. Ensure that the `grunt-cli` package is installed:
-   npm install -g grunt-cli
+2. Ensure that the `grunt-cli` package is installed: `npm install -g grunt-cli`
 
 3. Add in the required API keys as described below.
 
