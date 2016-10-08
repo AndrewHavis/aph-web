@@ -38,7 +38,7 @@ require('./modules/environment').setUpEnvironment(express, app, (environment) =>
     // Get the files from /dev or /public as appropriate
     if (environment === 'public') {
         // serve the files out of ./public as our main files and initalise universal analytics
-        app.use(express.static(__dirname + '/public'), function(req, res, next) {
+        app.use(express.static(__dirname + '/public'), (req, res, next) => {
             visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip, ua: req.headers['user-agent']}).send();
             next();
         });
@@ -47,13 +47,13 @@ require('./modules/environment').setUpEnvironment(express, app, (environment) =>
         app.use(express.static(__dirname + '/dev'));
     }
 
-    app.get('/test', function(req, res) {
+    app.get('/test', (req, res) => {
         res.set('Content-Type', 'application/json');
         res.send({'test':'This is a test page.'});
     });
 
     // start server on the specified port and binding host
-    app.listen(port, '0.0.0.0', function() {
+    app.listen(port, '0.0.0.0', () => {
         // print a message when the server starts listening
         console.log('Running the ' + environment + ' environment');
         console.log('Server starting on port ' + port);

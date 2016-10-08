@@ -9,6 +9,15 @@ module.exports.setUpTwitterRoutes = (credentials, app) => {
         access_token_secret: credentials.access_secret
     });
     
+    twitter.get('users/show', {"user_id": credentials.user_id}, (err, result) => {
+        if (!err) {
+            console.log('Twitter username: @' + result.screen_name);
+        }
+        else {
+            console.error('Error accessing Twitter API', err);
+        }
+    });
+    
     app.post('/api/twitter/me', (req, res) => {
         twitter.get('users/show', {"user_id": credentials.user_id}, (err, result) => {
             if (!err) {
