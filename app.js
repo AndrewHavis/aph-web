@@ -15,6 +15,11 @@ const express = require('express');
 const app = express();
 app.set('trust proxy', ['loopback', 'linklocal', 'uniquelocal', '159.8.128.116']); // Used to get remote IP address rather than that of the proxy
 
+// Universal analytics
+const ua = require('universal-analytics');
+const uuid = require('uuid').v4();
+const visitor = ua('UA-25684096-2');
+
 // Set up our environment
 require('./modules/environment').setUpEnvironment(express, app, (environment) => {
 
@@ -29,6 +34,18 @@ require('./modules/environment').setUpEnvironment(express, app, (environment) =>
 
     // get bower libraries
     app.use('/lib', express.static(__dirname + '/bower_components'));
+    
+    // Get the files from /dev or /public as appropriate
+    if (environment === 'public') {
+        // serve the files out of ./public as our main files and initalise universal analytics
+        app.use(express.static(__dirname + '/public'), function(req, res, next) {
+            visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip, ua: req.headers['user-agent']}).send();
+            next();
+        });
+    }
+    else {
+        app.use(express.static(__dirname + '/dev'));
+    }
 
     app.get('/test', function(req, res) {
         res.set('Content-Type', 'application/json');
