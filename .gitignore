@@ -36,6 +36,7 @@ bower_components
 
 # Credentials
 /credentials.json
+.env
 
 # Temporary files
 .tmp
