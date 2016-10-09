@@ -34,7 +34,7 @@
     "load-grunt-tasks": "^3.3.0",
     "morgan": "^1.7.0",
     "node-flickr": "^1.0.0",
-    "node-sass": "^3.10.1",
+    "node-sass": "^3.7.0",
     "time-grunt": "^1.2.2",
     "twitter": "^1.2.5",
     "universal-analytics": "^0.3.11",
