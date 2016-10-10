@@ -10,7 +10,8 @@ module.exports = function(grunt) {
         
         clean: {
             tmp: ['./.tmp'],
-            dist: ['./.tmp', './dist', './public']
+            dist: ['./.tmp', './dist', './public'],
+            images: ['./.tmp/img/**/']
         },
         
         jshint: {
@@ -37,7 +38,7 @@ module.exports = function(grunt) {
         mkdir: {
             all: {
               options: {
-                create: ['./.tmp', './public']
+                create: ['./.tmp', './tmp/img', './public']
               },
             },
         },
@@ -52,6 +53,11 @@ module.exports = function(grunt) {
                 files: [
                     {expand: true, cwd: './dev', src: ['**'], dest: './.tmp/'},
                 ],
+            },
+            images: {
+                files: [
+                    {expand: true, cwd: './dev/img', src: ['banner-bg.jpg', 'flake.png', 'intro-bg.jpg', 'loading.png'], dest: './.tmp/img'}, /* Only copy the images we need */
+                ]
             },
             public: {
                 files: [
@@ -136,7 +142,7 @@ module.exports = function(grunt) {
     // Default task(s).
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('init', ['copy:init']);
-    grunt.registerTask('build', ['jshint:all', 'clean:dist', 'mkdir:all', 'sass:dist', 'copy:tmp', 'wiredep', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:public', 'filerev', 'usemin']);
+    grunt.registerTask('build', ['jshint:all', 'clean:dist', 'mkdir:all', 'sass:dist', 'copy:tmp', 'clean:images', 'copy:images', 'wiredep', 'useminPrepare', 'concat:generated', 'cssmin:generated', 'uglify:generated', 'copy:public', 'filerev', 'usemin']);
     grunt.registerTask('server', ['express:dev', 'watch']);
 
 };

@@ -40,3 +40,6 @@ bower_components
 
 # Temporary files
 .tmp
+
+# Brackets logs
+.brackets.json
