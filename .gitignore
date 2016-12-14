@@ -39,3 +39,9 @@ bower_components
 
 # Temporary files
 .tmp
+
+# Environment variables
+.env
+
+# WebStorm
+.idea
