@@ -7,7 +7,8 @@ const dOceanIP = '178.62.30.178';
 const getIP = require('external-ip')();
 module.exports.setUpEnvironment = (express, app, callback) => {
     getIP((err, ip) => {
-        // If our IP address matches that of our Digital Ocean server, run the production environment
+        console.log('The IP address is', ip);
+	// If our IP address matches that of our Digital Ocean server, run the production environment
         // Otherwise, run the development environment
         if (ip === dOceanIP && !err) {
             console.log('On the Digital Ocean production environment');

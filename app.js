@@ -36,7 +36,7 @@ require('./modules/environment').setUpEnvironment(express, app, (environment) =>
     app.use('/lib', express.static(__dirname + '/bower_components'));
     
     // Get the files from /dev or /public as appropriate
-    if (environment === 'public') {
+    if (environment === 'production') {
         // serve the files out of ./public as our main files and initalise universal analytics
         app.use(express.static(__dirname + '/public'), (req, res, next) => {
             visitor.pageview({dp: "/", dt: "andrew-havis.co.uk", dh: "http://andrew-havis.co.uk/", cid: uuid, uip: req.headers['x-client-ip'] || req.headers['x-forwarded-for'] || req.ip, ua: req.headers['user-agent']}).send();
